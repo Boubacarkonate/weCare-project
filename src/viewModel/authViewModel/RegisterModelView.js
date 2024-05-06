@@ -16,6 +16,11 @@ export default function RegisterViewModel() {
             if (!isValidUserData(user)) {
                 throw new Error('Invalid user data. Please enter valid information.');
             }
+            
+            // Vérification que les deux mots de passe correspondent
+            if (user.password !== user.confirmPassword) {
+                throw new Error('Passwords do not match. Please make sure the passwords match.');
+            }
 
             const hashedPassword = await hashPassword(user.password); // Hash the password
 
@@ -52,7 +57,7 @@ export default function RegisterViewModel() {
     const isValidUserData = (userData) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regex pour valider l'e-mail
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{14,}$/; // Regex pour valider le mot de passe
-        return userData.email && userData.password && userData.username && emailRegex.test(userData.email) && passwordRegex.test(userData.password);
+        return userData.email && userData.password && userData.confirmPassword && userData.username && emailRegex.test(userData.email) && passwordRegex.test(userData.password);
     };
 
     const hashPassword = async (password) => {

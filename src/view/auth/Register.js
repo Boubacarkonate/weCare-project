@@ -27,6 +27,13 @@ export default function Register() {
                 secureTextEntry
             />
             <Input
+                placeholder="Confirm Password"
+                value={user.confirmPassword}
+                onChangeText={(text) => setUser({ ...user, confirmPassword: text })}
+                leftIcon={{ type: 'material', name: 'lock' }}
+                secureTextEntry
+            />
+            <Input
                 placeholder='Enter your username'
                 label='Username'
                 value={user.username}

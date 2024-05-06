@@ -19,7 +19,9 @@
     npm i firebase 
 
 ### import du async storage
-    npm install @react-native-async-storage/async-storage
+    npm install axios @react-native-async-storage/async-storage
+    
+    import AsyncStorage from '@react-native-async-storage/async-storage'; // Importer AsyncStorage
 
 ### import de regex
     npm install escape-string-regexp
