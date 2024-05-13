@@ -16,6 +16,7 @@ import HomeUser from './src/view/HomeUser';
 import Calendar from './src/view/Calendar';
 import ClassRegisterView from './src/view/ClassRegisterView';
 import UpdateProfile from './src/view/Profile/UpdateProfile';
+import DeleteProfile from './src/view/Profile/DeleteProfile';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -99,6 +100,7 @@ export default function App() {
           })}
         />
         <Stack.Screen name="UpdateProfile" component={UpdateProfile} />
+        <Stack.Screen name="DeleteProfile" component={DeleteProfile} />
         <Stack.Screen name="GroupChatScreen" component={GroupChatScreen} />
         <Stack.Screen name="GroupChat" component={GroupChat} />
       </Stack.Navigator>
