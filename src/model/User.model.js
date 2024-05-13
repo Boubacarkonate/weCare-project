@@ -1,11 +1,11 @@
 // User.model.js
 export default class User {
-    constructor(email, password, username, image, isAdmin, confirmPassword) {
+    constructor(email, password, username, avatarUrl, isAdmin, confirmPassword) {
         this.email = email;
         this.password = password;
         this.confirmPassword = confirmPassword;
         this.username = username;
-        this.image = image;
+        this.avatarUrl = avatarUrl;
         this.isAdmin = isAdmin;
     }
 }

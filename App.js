@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { Pressable, StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from "@react-navigation/native";
 import Login from './src/view/auth/Login';
 import ForgotPassword from './src/view/auth/ForgotPassword';
@@ -12,19 +13,49 @@ import GroupChat from './src/view/GroupChat';
 import GroupChatScreen from './src/view/GroupChatScreen';
 import Profile from './src/view/Profile/Profile';
 import HomeUser from './src/view/HomeUser';
-
+import Calendar from './src/view/Calendar';
+import ClassRegisterView from './src/view/ClassRegisterView';
+import UpdateProfile from './src/view/Profile/UpdateProfile';
 
 const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+
+function LogoTitle() {
+  return (
+    <Image
+      style={{ width: 70, height: 77, margin: 20 }}
+      source={require('./assets/WeCare.png')}
+    />
+  );
+}
+
 
 export default function App() {
   return (
     <View style={styles.container}>
    <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{
+          headerStyle: {
+            backgroundColor: '#38b6ff',
+          },
+          headerTitle: (props) => <LogoTitle {...props} />,
+          headerTitleAlign: 'center',
+          headerTintColor: '#fff',
+        }}
+      />
         <Stack.Screen name="Register" component={Register} />
 <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-<Stack.Screen name="Profile" component={Profile} />
+<Stack.Screen name="Profile" component={Profile}
+  options={{
+          headerStyle: {
+            backgroundColor: '#38b6ff',
+          },
+        }}
+/>
 <Stack.Screen name="HomeUser" component={HomeUser} />
 <Stack.Screen
           name="Home"
@@ -67,6 +98,7 @@ export default function App() {
             headerTitleStyle: { fontWeight: "bold" },
           })}
         />
+        <Stack.Screen name="UpdateProfile" component={UpdateProfile} />
         <Stack.Screen name="GroupChatScreen" component={GroupChatScreen} />
         <Stack.Screen name="GroupChat" component={GroupChat} />
       </Stack.Navigator>

@@ -16,8 +16,8 @@ export default function ProfileViewModel() {
                     const snapshot = await getDocs(userRef);
                     snapshot.forEach((doc) => {
                         if (doc.id === currentUser.uid) {
-                            const userData = doc.data();
-                            setUserData(new User(doc.id, userData.email, userData.username, userData.avatarUrl));
+                            const { email, username, avatarUrl, isAdmin } = doc.data();
+                            setUserData(new User(email, null, username, avatarUrl, isAdmin, null));
                         }
                     });
                 }

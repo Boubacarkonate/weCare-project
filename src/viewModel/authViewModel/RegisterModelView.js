@@ -1,10 +1,11 @@
+//RegisterViewModel
 import { useState } from 'react';
 import { createUserWithEmailAndPassword, sendEmailVerification} from 'firebase/auth';
 import { authentication, db } from '../../../firebase/firebaseConfig';
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
-import User from '..//../model/User.model';
+import User from '../../model/User.model';
 import { Alert } from 'react-native';
-import bcrypt from 'bcryptjs'; // Importer bcryptjs
+import bcrypt from 'bcryptjs'; 
 
 export default function RegisterViewModel() {
     const [user, setUser] = useState(new User('', '', '', null, false));
@@ -21,8 +22,8 @@ export default function RegisterViewModel() {
             if (user.password !== user.confirmPassword) {
                 throw new Error('Passwords do not match. Please make sure the passwords match.');
             }
-
-            const hashedPassword = await hashPassword(user.password); // Hash the password
+            // Hash the password
+            const hashedPassword = await hashPassword(user.password); 
 
             // Création de l'utilisateur dans Firebase Authentication
             const credentials = await createUserWithEmailAndPassword(authentication, user.email, user.password);
@@ -32,7 +33,7 @@ export default function RegisterViewModel() {
             const docUserRef = doc(db, 'utilisateurs', userUID);
             const role = user.isAdmin ? 'admin' : 'user';
             await setDoc(docUserRef, {
-                avatarUrl: user.image ? user.image : 'https://static.thenounproject.com/png/363640-200.png',
+                avatarUrl: user.avatarUrl ? user.avatarUrl : 'https://static.thenounproject.com/png/363640-200.png',
                 username: user.username,
                 email: user.email,
                 password: hashedPassword, // Store hashed password

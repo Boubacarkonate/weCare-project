@@ -15,13 +15,16 @@ export default function Login({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <Input
+            <View style={{marginTop:50}}>
+                <View style={{marginBottom:30}}>
+                <Input
                 placeholder='Enter your email'
                 label='Email'
                 value={user.email}
                 onChangeText={text => setUser({ ...user, email: text })}
                 leftIcon={{ type: 'material', name: 'email' }}
             />
+            </View>
             <Input
                 placeholder='Enter your password'
                 label='Password'
@@ -30,6 +33,8 @@ export default function Login({ navigation }) {
                 leftIcon={{ type: 'material', name: 'lock' }}
                 secureTextEntry
             />
+                
+            
 
             {remainingAttempts > 0 && (
                 <Text style={styles.remainingAttemptsText}>Remaining login attempts: {remainingAttempts}</Text>
@@ -39,19 +44,28 @@ export default function Login({ navigation }) {
                 <Text style={styles.errorText}>Too many login attempts. Please try again later.</Text>
             )}
 
-            <Button
+            </View>
+            <View style={{flexDirection:'row', justifyContent:'space-between', marginTop: 20, marginBottom: 60}}>
+                 <Button
                 onPress={handleLogin}
                 title='Login'
+                containerStyle={{width: '45%'}}
+                buttonStyle={{ backgroundColor:'#38b6ff' }}
             />
+            <Button
+                onPress={() => navigation.navigate("ForgotPassword")}
+                title='Password forgotten'
+                containerStyle={{width: '45%'}}
+                buttonStyle={{ backgroundColor:'#38b6ff' }}
+            /> 
+            </View>
+          
             <Button
                 style={styles.btn}
                 onPress={() => navigation.navigate("Register")}
                 title='Register'
-            />
-            <Button
-                style={{ marginTop: 50 }}
-                onPress={() => navigation.navigate("ForgotPassword")}
-                title='Password forgotten'
+                containerStyle={{marginTop: 10}}
+                buttonStyle={{ backgroundColor:'#38b6ff' }}
             />
         </View>
     );
@@ -60,9 +74,12 @@ export default function Login({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        // justifyContent:'center',
+        margin:20
     },
     btn: {
-        marginTop: 10
+        // marginTop: 10,
+        // padding:10
     },
     remainingAttemptsText: {
         textAlign: 'center',

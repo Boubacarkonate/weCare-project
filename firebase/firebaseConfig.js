@@ -1,3 +1,4 @@
+//firebaseConfig.js
 import { initializeApp } from "firebase/app";
 import { getAuth, getReactNativePersistence  } from "firebase/auth";
 import { getFirestore  } from "firebase/firestore";

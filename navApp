@@ -1,0 +1,90 @@
+import { StatusBar } from 'expo-status-bar';
+import { Pressable, StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from "@react-navigation/native";
+import Login from './src/view/auth/Login';
+import ForgotPassword from './src/view/auth/ForgotPassword';
+import Home from './src/view/Home';
+import { Ionicons } from '@expo/vector-icons';
+import Chat from './src/view/Chat';
+import Register from './src/view/auth/Register';
+import GroupChat from './src/view/GroupChat';
+import GroupChatScreen from './src/view/GroupChatScreen';
+import Profile from './src/view/Profile/Profile';
+import HomeUser from './src/view/HomeUser';
+import Calendar from './src/view/Calendar';
+import ClassRegisterView from './src/view/ClassRegisterView';
+
+const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+
+function LogoTitle() {
+  return (
+    <Image
+      style={{ width: 70, height: 77, margin: 20 }}
+      source={require('./assets/WeCare.png')}
+    />
+  );
+}
+
+function AuthStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{
+          title: 'My home',
+          headerStyle: {
+            backgroundColor: '#38b6ff',
+          },
+          headerTitle: (props) => <LogoTitle {...props} />,
+          headerTitleAlign: 'center',
+          headerTintColor: '#fff',
+        }}
+      />
+      <Stack.Screen name="Register" component={Register} />
+      <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+    </Stack.Navigator>
+  );
+}
+
+function MainTabNavigator() {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="Chat" component={Chat} />
+      <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Screen name="Calendar" component={Calendar} 
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="calendar" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen name="HomeUser" component={HomeUser} />
+      <Tab.Screen name="GroupChat" component={GroupChat} />
+    </Tab.Navigator>
+  );
+}
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Auth" component={AuthStack} />
+        <Stack.Screen name="Main" component={MainTabNavigator} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'blue',
+    // alignItems: 'center',
+    justifyContent: 'center',
+  },
+});

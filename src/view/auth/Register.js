@@ -1,3 +1,4 @@
+//RegisterView
 import React from 'react';
 import { StyleSheet, View, Text, Pressable, Image } from 'react-native';
 import { Input, Button } from 'react-native-elements';
@@ -54,9 +55,9 @@ export default function Register() {
                     </Pressable>
                 )}
 
-                {user.image && (
+                {user.avatarUrl && (
                     <Pressable onPress={showImagePickerOptions}>
-                        <Image source={{ uri: user.image }} style={styles.image} />
+                        <Image source={{ uri: user.avatarUrl }} style={styles.avatarUrl} />
                     </Pressable>
                 )}
             </View>

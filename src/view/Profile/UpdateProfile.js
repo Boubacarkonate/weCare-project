@@ -2,7 +2,7 @@
 import React from 'react';
 import { StyleSheet, View, Image } from 'react-native';
 import { Input, Button } from 'react-native-elements';
-import UpdateProfileViewModel from '../../src/viewModel/Profile/UpdateProfileViewModel';
+import UpdateProfileViewModel from '../../viewModel/ProfileViewModel/UpdateProfileViewModel';
 
 export default function UpdateProfile() {
     const { user, setUser, updateUserProfile } = UpdateProfileViewModel();
@@ -26,12 +26,12 @@ export default function UpdateProfile() {
             <Input
                 placeholder='Avatar'
                 label='Avatar'
-                value={user.avatar}
+                value={user.avatarUrl}
                 onChangeText={text => setUser({ ...user, avatar: text })}
                 leftIcon={{ type: 'material', name: 'photo' }}
             />
             {user.avatar && (
-                <Image source={{ uri: user.avatar }} style={{ width: 100, height: 100 }} />
+                <Image source={{ uri: user.avatarUrl }} style={{ width: 100, height: 100 }} />
             )}
 
             <Button
@@ -44,13 +44,13 @@ export default function UpdateProfile() {
 }
 
 const styles = StyleSheet.create({
-    // container: {
-    //     flex: 1,
-    //     backgroundColor: '#fff',
-    //     alignItems: 'center',
-    //     justifyContent: 'center',
-    // },
-    // btn: {
-    //     marginTop: 10
-    // },
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    btn: {
+        marginTop: 10
+    },
 });

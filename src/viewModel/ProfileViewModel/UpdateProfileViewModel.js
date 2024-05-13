@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { doc, getDoc, serverTimestamp, updateDoc } from 'firebase/firestore';
 import { authentication, db } from '../../../firebase/firebaseConfig';
 import User from '../../model/User.model';
+import { Alert } from 'react-native';
 
 export default function UpdateProfileViewModel() {
     const [user, setUser] = useState(new User('', '', '', '', false));
@@ -31,13 +32,22 @@ export default function UpdateProfileViewModel() {
             await updateDoc(userDoc, {
                 email: user.email,
                 username: user.username,
-                avatarUrl: user.avatar,
+                avatarUrl: user.avatarUrl,
                 updateDate: serverTimestamp()
             });
             console.log('User profile updated successfully');
+            Alert.alert('Success', 'Profile updated successfully');
+            setTimeout(() => {
+                if (user.role === 'admin') {
+                    navigation.navigate('Home');
+                } else {
+                    navigation.navigate('HomeUser');
+                }
+                
+            }, 2000);
         } catch (error) {
             console.error('Error updating user profile:', error);
-            throw new Error('Failed to update profile');
+            Alert.alert('Error', 'Failed to update profile');
         }
     };
 
