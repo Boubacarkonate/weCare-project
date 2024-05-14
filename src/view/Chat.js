@@ -29,24 +29,11 @@ export default function Chat({ route }) {
             headerRight: () => (
                 <TouchableOpacity style={styles.headerRightBtn}>
                     <Ionicons
-                        name="call"
-                        size={30}
-                        color="black"
-                        style={{ paddingRight: 20 }}
-                        onPress={() => navigation.navigate("AudioCall")}
-                    />
-                    <Ionicons
                         name="videocam"
                         size={30}
-                        color="black"
+                        color="#fff"
                         style={{ paddingRight: 20 }}
                         onPress={() => navigation.navigate("VideoCall")}
-                    />
-                    <Ionicons
-                        name="ellipsis-vertical"
-                        size={30}
-                        color="black"
-                        onPress={() => alert("parameters")}
                     />
                 </TouchableOpacity>
             ),
@@ -344,13 +331,17 @@ const onDeleteMessage = async (messageToDelete) => {
     const itemButton = (props) => {
       return (
         <View style={{flexDirection: 'row', alignItems: 'center', justifyContent:'center'}} >
-              <Pressable  onPress={() => navigation.navigate("TakeVideo_Photo_Gallery")}>
+            {/* <View style={{flexDirection: 'row', alignItems: 'center', justifyContent:'center'}} > */}
+
+             {/* PRENDRE UNE PHOTO DEPUIS L'INPUT MESSAGE DU CHAT */}
+
+            {/*  <Pressable  onPress={() => navigation.navigate("TakeVideo_Photo_Gallery")}>
              <FontAwesome
               name="camera"
               size={22}
               color="#333"
             />
-          </Pressable>
+          </Pressable> */}
              <Pressable onPress={optionFile}>
              <FontAwesome
               name="paperclip"
@@ -358,17 +349,20 @@ const onDeleteMessage = async (messageToDelete) => {
               color="#333"
               style={{
                 transform: [{ rotateY: "180deg" }],
+                marginRight:10
               }}
             />
           </Pressable>
           <Send {...props}>
+            <View style={{marginBottom:8}}>
           <FontAwesome
               name="send-o"
               size={22}
               color="#333"
               />
+            </View>
           </Send>
-
+        {/* </View> */}
       <Modal visible={modalVisible} animationType="fade" transparent={true}>
      {/* Utiliser TouchableOpacity pour détecter les touchers en dehors du contenu du modal */}
      <TouchableOpacity
@@ -407,18 +401,12 @@ const onDeleteMessage = async (messageToDelete) => {
             {...props}
             wrapperStyle={{
                 left: {
-                    backgroundColor: '#f0f0f0', // Couleur de fond pour les messages reçus
+                    backgroundColor: '#fff', // Couleur de fond pour les messages reçus
+                    padding:10
                 },
                 right: {
-                    backgroundColor: 'red', // Couleur de fond pour les messages envoyés
-                },
-            }}
-            textStyle={{
-                left: {
-                    color: '#000', // Couleur du texte pour les messages reçus
-                },
-                right: {
-                    color: '#fff', // Couleur du texte pour les messages envoyés
+                    backgroundColor: '#009CF6', // Couleur de fond pour les messages envoyés
+                    padding:10,
                 },
             }}
         />
@@ -448,7 +436,7 @@ const onDeleteMessage = async (messageToDelete) => {
                             <TouchableOpacity
                                 onLongPress={() => onDeleteMessage(props.currentMessage)}
                             >
-                                <Text>{props.currentMessage.text}</Text>
+                                <Text style={styles.messageText}>{props.currentMessage.text}</Text>
                             </TouchableOpacity>
                         );
                     }
@@ -492,7 +480,9 @@ const onDeleteMessage = async (messageToDelete) => {
                 renderInputToolbar={props => {
                     return (
                         <InputToolbar {...props}
-                            containerStyle={{ backgroundColor: 'green', borderRadius: 10 }}
+                        containerStyle={styles.inputToolbarContainer}
+                        primaryStyle={styles.primaryStyle}
+                        accessoryStyle={styles.accessoryStyle}
                         />
                     );
                 }}
@@ -591,5 +581,31 @@ const styles = StyleSheet.create({
         width: 200,
         height: 200
     },
+    messageText: {
+        fontSize: 15,
+        fontWeight: "600",
+    },
+
+    inputToolbarContainer: {
+        backgroundColor: '#fff',
+        // borderWidth: 1,
+        // // borderColor: 'gray',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.5,
+        shadowRadius: 3.84,
+        elevation: 5,           //android
+        marginHorizontal:10,
+        marginBottom:5,
+        borderRadius:10
+      },
+      primaryStyle: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row',
+      },
+      accessoryStyle: {
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
 });
 

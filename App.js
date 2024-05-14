@@ -58,27 +58,12 @@ export default function App() {
         }}
 />
 <Stack.Screen name="HomeUser" component={HomeUser} />
-<Stack.Screen
-          name="Home"
-          component={Home}
-          // options={{
-          //   headerBackVisible: false,
-          //   title: "Active users",
-          //   headerTitleAlign: "center",
-          //   headerTitleStyle: { fontWeight: 900 },
-          //   headerRight: () => (
-          //     <TouchableOpacity onPress={() => alert('This is a button!')} style={styles.headerRightBtn}>
-          //       <Ionicons name="search" size={30} color="black" style={{ paddingRight:20 }} />
-          //       <Ionicons name="ellipsis-vertical" size={30} color="black"/>
-          //     </TouchableOpacity>
-          //   ),
-          // }}
-        />
+<Stack.Screen name="Home" component={Home} />
         <Stack.Screen
           name="Chat"
           component={Chat}
           options={({ route }) => ({
-            headerBackVisible: false,
+            // headerBackVisible: false,
             headerTitle: () => (
               <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Image
@@ -90,14 +75,18 @@ export default function App() {
                     marginRight: 10,
                   }}
                 />
-                <Text style={{ fontWeight: "bold", fontSize: 16 }}>
+                <Text style={{ fontWeight: "bold", fontSize: 16, color: '#fff' }}>
                   {route.params.name}
                 </Text>
               </View>
             ),
-            headerTitleAlign: "left",
-            headerTitleStyle: { fontWeight: "bold" },
-          })}
+            // headerTitleAlign: "left",
+            // headerTitleStyle: { fontWeight: "bold" },
+            headerStyle: {
+              backgroundColor: '#38b6ff',
+            }
+          }
+        )}
         />
         <Stack.Screen name="UpdateProfile" component={UpdateProfile} />
         <Stack.Screen name="DeleteProfile" component={DeleteProfile} />
@@ -112,7 +101,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'red',
+    backgroundColor: '#F5F5F5',
     // alignItems: 'center',
     justifyContent: 'center',
   },

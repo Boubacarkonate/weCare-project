@@ -19,7 +19,7 @@ export default function HomeUser({ navigation }) {
       navigation.setOptions({
           headerRight: () => (
               <Pressable onPress={logoutUser} style={{ marginRight: 10 }}>
-                <AntDesign name="logout" size={24} color="black" />
+                <AntDesign name="logout" size={24} color="#ffF" />
               </Pressable>
           )
       });
