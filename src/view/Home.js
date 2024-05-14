@@ -34,7 +34,7 @@ export default function Home({ navigation }) {
 
   useEffect(() => {
     const unsubscribe = getData();
-    return () => unsubscribe(); // Assurez-vous de désabonner correctement lors du démontage du composant
+    return () => unsubscribe(); // désabonnement
   }, []);
 
   const getData = () => {
@@ -110,15 +110,9 @@ export default function Home({ navigation }) {
       <Pressable onPress={() => navigation.navigate("GroupChat")}>
         <FontAwesome name="group" size={24} color="black" />
       </Pressable>
-      {/* <Pressable onPress={() => navigation.navigate("AppointmentCalendar")}>
-      <FontAwesome name="calendar" size={24} color="black" />
-      </Pressable> */}
       <Pressable onPress={() => navigation.navigate("Calendar")}>
       <FontAwesome name="calendar" size={24} color="black" />
       </Pressable>
-      {/* <Pressable onPress={() => navigation.navigate("CalendarScreen")}>
-      <FontAwesome name="calendar" size={24} color="black" />
-      </Pressable> */}
       <Button title="Album" onPress={() => navigation.navigate("Album")} />
       <Button title="Profile" onPress={() => navigation.navigate("Profile")} />
     </>

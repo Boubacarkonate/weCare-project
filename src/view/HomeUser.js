@@ -19,15 +19,22 @@ export default function HomeUser({ navigation }) {
       navigation.setOptions({
           headerRight: () => (
               <Pressable onPress={logoutUser} style={{ marginRight: 10 }}>
-                <AntDesign name="logout" size={24} color="#ffF" />
+                  <AntDesign name="logout" size={24} color="#fff" />
               </Pressable>
-          )
+          ),
+          headerStyle: {
+              backgroundColor: '#38b6ff',
+          },
+          headerBackVisible: false,
+          title: "WeCare",
+          headerTitleAlign: "left",
+          headerTitleStyle: { fontWeight: '900', color: 'white' },
       });
   }, [navigation, logoutUser]);
   
     useEffect(() => {
       const unsubscribe = getData();
-      return () => unsubscribe(); // Assurez-vous de désabonner correctement lors du démontage du composant
+      return () => unsubscribe(); // desabonnement
     }, []);
   
     const getData = () => {
