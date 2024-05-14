@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
         elevation: 5,
     },
     openButton: {
-        backgroundColor: '#F194FF',
+        backgroundColor: '#2196F3',
         borderRadius: 20,
         padding: 10,
         elevation: 2,

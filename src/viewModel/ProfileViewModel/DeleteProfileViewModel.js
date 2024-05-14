@@ -12,30 +12,31 @@ export default function DeleteProfileViewModel() {
     const handleDeleteAccount = async () => {
         try {
             // Vérifier si un utilisateur est actuellement authentifié
-            if (authentication.currentUser) {
-                // Supprimer l'utilisateur de l'authentification Firebase
-                await deleteUser(authentication.currentUser);
-                console.log('suppression Authentication');
-    
+            const currentUser = authentication.currentUser;
+            if (currentUser) {
                 // Supprimer l'utilisateur de Firestore
-                const userDocRef = doc(db, 'utilisateurs', authentication.currentUser.uid); // Utiliser authentication.currentUser.uid
+                const userDocRef = doc(db, 'utilisateurs', currentUser.uid); // Utiliser authentication.currentUser.uid
                 await deleteDoc(userDocRef);
-                console.log('utilisateur deleted en bdd');
+                console.log('Utilisateur supprimé de la BDD');
+    
+                // Supprimer l'utilisateur de l'authentification Firebase
+                await deleteUser(currentUser);
+                console.log('Utilisateur supprimé de l\'authentification Firebase');
     
                 // Rediriger l'utilisateur vers la page de connexion ou afficher un message de confirmation
                 navigation.navigate('Login');
             } else {
                 // Afficher un message d'erreur si aucun utilisateur n'est actuellement connecté
-                console.error('No user is currently authenticated.');
-                Alert.alert('Error', 'No user is currently authenticated.');
+                console.error('Aucun utilisateur n\'est actuellement authentifié.');
+                Alert.alert('Erreur', 'Aucun utilisateur n\'est actuellement authentifié.');
             }
         } catch (error) {
-            console.error('Error deleting account:', error);
+            console.error('Erreur lors de la suppression du compte :', error);
             // Afficher un message d'erreur à l'utilisateur
-            Alert.alert('Error', 'An error occurred while deleting your account.');
+            Alert.alert('Erreur', 'Une erreur est survenue lors de la suppression de votre compte.');
         }
     };
-    
+
     const showModal = () => {
         setModalVisible(true);
     };
