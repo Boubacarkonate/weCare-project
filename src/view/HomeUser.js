@@ -1,9 +1,10 @@
 // homeUser.js    
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { View, Text, StyleSheet, FlatList, Image, TouchableWithoutFeedback, Button, Pressable } from "react-native";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { authentication, db } from "../../firebase/firebaseConfig";
 import { MaterialCommunityIcons, FontAwesome } from "@expo/vector-icons";
+import { AntDesign } from '@expo/vector-icons';
 
 export default function HomeUser({ navigation }) {
     const [data, setData] = useState([]);
@@ -13,6 +14,16 @@ export default function HomeUser({ navigation }) {
         navigation.replace("Login");
       });
     };
+
+    useLayoutEffect(() => {
+      navigation.setOptions({
+          headerRight: () => (
+              <Pressable onPress={logoutUser} style={{ marginRight: 10 }}>
+                <AntDesign name="logout" size={24} color="black" />
+              </Pressable>
+          )
+      });
+  }, [navigation, logoutUser]);
   
     useEffect(() => {
       const unsubscribe = getData();
@@ -95,7 +106,6 @@ export default function HomeUser({ navigation }) {
         </Pressable>
         <Button title="Album" onPress={() => navigation.navigate("Album")} />
         <Button title="Profile" onPress={() => navigation.navigate("Profile")} />
-        <Button title="Logout" onPress={logoutUser} />
       </>
     );
   }
