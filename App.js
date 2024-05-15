@@ -17,6 +17,7 @@ import Calendar from './src/view/Calendar';
 import ClassRegisterView from './src/view/ClassRegisterView';
 import UpdateProfile from './src/view/Profile/UpdateProfile';
 import DeleteProfile from './src/view/Profile/DeleteProfile';
+import Album from './src/view/Album';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -115,6 +116,7 @@ options={{
           }}
         />
         <Stack.Screen name="GroupChatScreen" component={GroupChatScreen} />
+        <Stack.Screen name="Album" component={Album} />
         <Stack.Screen name="GroupChat" component={GroupChat} 
           options={{
             headerStyle: {

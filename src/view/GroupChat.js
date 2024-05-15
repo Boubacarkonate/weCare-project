@@ -1,3 +1,4 @@
+//Group
 import React, { useState, useEffect } from 'react';
 import { View, TextInput, FlatList, Button, Text, StyleSheet } from 'react-native';
 import { collection, addDoc, serverTimestamp, updateDoc, doc, arrayUnion, getDocs } from 'firebase/firestore';
@@ -98,6 +99,10 @@ const GroupChat = () => {
         title="Créer un groupe de chat"
         onPress={createGroupChat}
       />
+      {/* <Button
+        title="Créer un groupe album"
+        onPress={createGroupChat}
+      /> */}
     </View>
   );
 };
