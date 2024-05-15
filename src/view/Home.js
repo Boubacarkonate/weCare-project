@@ -110,7 +110,7 @@ export default function Home({ navigation }) {
       <Pressable onPress={() => navigation.navigate("GroupChat")}>
         <FontAwesome name="group" size={24} color="black" />
       </Pressable>
-      <Pressable onPress={() => navigation.navigate("Calendar")}>
+      <Pressable onPress={() => navigation.navigate("CalendarEvent")}>
       <FontAwesome name="calendar" size={24} color="black" />
       </Pressable>
       <Button title="Album" onPress={() => navigation.navigate("Album")} />

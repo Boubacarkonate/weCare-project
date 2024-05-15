@@ -111,7 +111,7 @@ export default function HomeUser({ navigation }) {
         <Pressable onPress={() => navigation.navigate("Calendar")}>
           <FontAwesome name="calendar" size={24} color="black" />
         </Pressable>
-        <Button title="Album" onPress={() => navigation.navigate("Album")} />
+        <Button title="Album" onPress={() => navigation.navigate("CalendarEvent")} />
         <Button title="Profile" onPress={() => navigation.navigate("Profile")} />
       </>
     );
