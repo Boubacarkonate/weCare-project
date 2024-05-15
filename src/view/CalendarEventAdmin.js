@@ -1,84 +1,61 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { View, Alert, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
 import { Agenda } from 'react-native-calendars';
-import { collection, addDoc, serverTimestamp, getDocs } from 'firebase/firestore';
-import { db } from "../../firebase/firebaseConfig";
+import useCalendarEventViewModel from "../viewModel/CalendarEventViewModel";
 
-const CalendarEvent = () => {
-  const [items, setItems] = useState({});
-  const [selectedDate, setSelectedDate] = useState('');
-  const [newEventText, setNewEventText] = useState('');
+const CalendarEventViewAdmin = () => {
+  const viewModel = useCalendarEventViewModel();
 
   useEffect(() => {
-    fetchEvents();
+    viewModel.fetchEvents();
   }, []);
 
-  const fetchEvents = async () => {
-    try {
-      const eventsCollectionRef = collection(db, 'events');
-      const querySnapshot = await getDocs(eventsCollectionRef);
-      const formattedEvents = {};
-
-      querySnapshot.forEach((doc) => {
-        const eventData = doc.data();
-        const eventDate = eventData.date;
-        
-        if (!formattedEvents[eventDate]) {
-          formattedEvents[eventDate] = [];
-        }
-
-        formattedEvents[eventDate].push({
-          name: eventData.name,
-          date: eventDate,
-          id: doc.id // You can optionally include the document ID
-        });
-      });
-
-      setItems(formattedEvents);
-    } catch (error) {
-      console.error("Erreur lors de la récupération des événements :", error);
-      Alert.alert("Une erreur s'est produite lors de la récupération des événements. Veuillez réessayer.");
-    }
-  };
-
   const handleDayPress = (day) => {
-    setSelectedDate(day.dateString);
+    viewModel.setSelectedDate(day.dateString);
   };
 
   const handleTextChange = (text) => {
-    setNewEventText(text);
+    viewModel.setNewEventText(text);
   };
 
   const handleSaveEvent = async () => {
-    if (newEventText.trim() === '') {
+    if (viewModel.newEventText.trim() === '') {
       Alert.alert("Veuillez saisir un événement.");
       return;
     }
-
+  
     try {
-      const eventsCollectionRef = collection(db, 'events');
-      await addDoc(eventsCollectionRef, {
-        date: selectedDate,
-        name: newEventText,
-        createdAt: serverTimestamp()
-      });
+      await viewModel.saveEvent();
       Alert.alert("Événement enregistré avec succès !");
-      setNewEventText('');
+      viewModel.setNewEventText('');
+      await viewModel.fetchEvents();
     } catch (error) {
       console.error("Erreur lors de l'enregistrement de l'événement :", error);
       Alert.alert("Une erreur s'est produite lors de l'enregistrement de l'événement. Veuillez réessayer.");
     }
   };
 
+  // const handleDeleteEvent = async (eventId) => {
+  //   try {
+  //     await viewModel.deleteEvent(eventId);
+  //   } catch (error) {
+  //     console.error("Erreur lors de la suppression de l'événement :", error);
+  //   }
+  // };
+
   const renderItem = (item) => {
     return (
+      <View>
       <TouchableOpacity
         style={[styles.item, { height: item.height }]}
         onPress={() => Alert.alert(item.name)}
       >
         <Text>{item.name}</Text>
       </TouchableOpacity>
+      {/* <TouchableOpacity onPress={() => handleDeleteEvent(item.id)}>
+        <Text >Supprimer</Text>
+      </TouchableOpacity> */}
+      </View>
     );
   };
 
@@ -97,8 +74,8 @@ const CalendarEvent = () => {
   return (
     <View style={styles.container}>
       <Agenda
-        items={items}
-        selected={selectedDate}
+        items={viewModel.items}
+        selected={viewModel.selectedDate}
         renderItem={renderItem}
         renderEmptyDate={renderEmptyDate}
         rowHasChanged={rowHasChanged}
@@ -108,7 +85,7 @@ const CalendarEvent = () => {
         <TextInput
           style={styles.input}
           onChangeText={handleTextChange}
-          value={newEventText}
+          value={viewModel.newEventText}
           placeholder="Entrez votre événement"
         />
         <TouchableOpacity style={styles.button} onPress={handleSaveEvent}>
@@ -117,7 +94,7 @@ const CalendarEvent = () => {
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -160,4 +137,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default CalendarEvent;
+export default CalendarEventViewAdmin;

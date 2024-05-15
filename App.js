@@ -13,12 +13,11 @@ import GroupChat from './src/view/GroupChat';
 import GroupChatScreen from './src/view/GroupChatScreen';
 import Profile from './src/view/Profile/Profile';
 import HomeUser from './src/view/HomeUser';
-import Calendar from './src/view/CalendarEvent';
-import ClassRegisterView from './src/view/ClassRegisterView';
 import UpdateProfile from './src/view/Profile/UpdateProfile';
 import DeleteProfile from './src/view/Profile/DeleteProfile';
 import Album from './src/view/Album';
-import CalendarEvent from './src/view/CalendarEvent';
+import CalendarEventViewAdmin from './src/view/CalendarEventAdmin';
+import CalendarEventViewUser from './src/view/CalendarEventUser';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -118,7 +117,8 @@ options={{
         />
         <Stack.Screen name="GroupChatScreen" component={GroupChatScreen} />
         <Stack.Screen name="Album" component={Album} />
-        <Stack.Screen name="CalendarEvent" component={CalendarEvent} />
+        <Stack.Screen name="CalendarEventAdmin" component={CalendarEventViewAdmin} />
+        <Stack.Screen name="CalendarEventUser" component={CalendarEventViewUser} />
         <Stack.Screen name="GroupChat" component={GroupChat} 
           options={{
             headerStyle: {
