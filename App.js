@@ -48,8 +48,20 @@ export default function App() {
           headerTintColor: '#fff',
         }}
       />
-        <Stack.Screen name="Register" component={Register} />
-<Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+        <Stack.Screen name="Register" component={Register} 
+          options={{
+            headerStyle: {
+              backgroundColor: '#38b6ff',
+            }
+          }}
+        />
+<Stack.Screen name="ForgotPassword" component={ForgotPassword}
+options={{
+    headerStyle: {
+      backgroundColor: '#38b6ff',
+    },
+  }} 
+/>
 <Stack.Screen name="Profile" component={Profile}
   options={{
           headerStyle: {
@@ -88,10 +100,28 @@ export default function App() {
           }
         )}
         />
-        <Stack.Screen name="UpdateProfile" component={UpdateProfile} />
-        <Stack.Screen name="DeleteProfile" component={DeleteProfile} />
+        <Stack.Screen name="UpdateProfile" component={UpdateProfile} 
+          options={{
+            headerStyle: {
+              backgroundColor: '#38b6ff',
+            },
+          }}
+        />
+        <Stack.Screen name="DeleteProfile" component={DeleteProfile} 
+          options={{
+            headerStyle: {
+              backgroundColor: '#38b6ff',
+            },
+          }}
+        />
         <Stack.Screen name="GroupChatScreen" component={GroupChatScreen} />
-        <Stack.Screen name="GroupChat" component={GroupChat} />
+        <Stack.Screen name="GroupChat" component={GroupChat} 
+          options={{
+            headerStyle: {
+              backgroundColor: '#38b6ff',
+            },
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer> 
     </View>

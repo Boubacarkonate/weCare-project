@@ -23,6 +23,8 @@ export default function Login({ navigation }) {
                 value={user.email}
                 onChangeText={text => setUser({ ...user, email: text })}
                 leftIcon={{ type: 'material', name: 'email' }}
+                inputContainerStyle={styles.inputContainer}
+                labelStyle={styles.inputLabel}
             />
             </View>
             <Input
@@ -32,6 +34,8 @@ export default function Login({ navigation }) {
                 onChangeText={text => setUser({ ...user, password: text })}
                 leftIcon={{ type: 'material', name: 'lock' }}
                 secureTextEntry
+                inputContainerStyle={styles.inputContainer}
+                labelStyle={styles.inputLabel}
             />
                 
             
@@ -49,13 +53,14 @@ export default function Login({ navigation }) {
                  <Button
                 onPress={handleLogin}
                 title='Login'
-                containerStyle={{width: '45%'}}
+                containerStyle={{width: '45%', borderRadius: 20}}
                 buttonStyle={{ backgroundColor:'#38b6ff' }}
+                // titleStyle={{  }}
             />
             <Button
                 onPress={() => navigation.navigate("ForgotPassword")}
                 title='Password forgotten'
-                containerStyle={{width: '45%'}}
+                containerStyle={{width: '45%', borderRadius: 15}}
                 buttonStyle={{ backgroundColor:'#38b6ff' }}
             /> 
             </View>
@@ -64,7 +69,7 @@ export default function Login({ navigation }) {
                 style={styles.btn}
                 onPress={() => navigation.navigate("Register")}
                 title='Register'
-                containerStyle={{marginTop: 10}}
+                containerStyle={{marginTop: 10, borderRadius: 15}}
                 buttonStyle={{ backgroundColor:'#38b6ff' }}
             />
         </View>
@@ -77,9 +82,17 @@ const styles = StyleSheet.create({
         // justifyContent:'center',
         margin:20
     },
-    btn: {
-        // marginTop: 10,
-        // padding:10
+    inputContainer: {
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 20,
+        paddingHorizontal: 10,
+        marginVertical: 10,
+    },
+    inputLabel: {
+        color: '#333',
+        fontSize: 16,
+        // marginBottom: 1,
     },
     remainingAttemptsText: {
         textAlign: 'center',
