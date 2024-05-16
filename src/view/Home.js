@@ -1,9 +1,9 @@
 // home.js    OKOKOKOKOKOKOKOKOKOKOKOKO
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { View, Text, StyleSheet, FlatList, Image, TouchableWithoutFeedback, Button, Pressable } from "react-native";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { authentication, db } from "../../firebase/firebaseConfig";
-import { MaterialCommunityIcons, FontAwesome } from "@expo/vector-icons";
+import { MaterialCommunityIcons, FontAwesome, AntDesign } from "@expo/vector-icons";
 
 export default function Home({ navigation }) {
   const [data, setData] = useState([]);
@@ -14,9 +14,27 @@ export default function Home({ navigation }) {
     });
   };
 
+  useLayoutEffect(() => {
+    navigation.setOptions({
+        headerRight: () => (
+            <Pressable onPress={logoutUser} style={{ marginRight: 10 }}>
+                <AntDesign name="logout" size={24} color="#fff" />
+            </Pressable>
+        ),
+        headerStyle: {
+            backgroundColor: '#38b6ff',
+        },
+        headerBackVisible: false,
+        title: "WeCare",
+        headerTitleAlign: "left",
+        headerTitleStyle: { fontWeight: '900', color: 'white' },
+    });
+}, [navigation, logoutUser]);
+
+
   useEffect(() => {
     const unsubscribe = getData();
-    return () => unsubscribe(); // Assurez-vous de désabonner correctement lors du démontage du composant
+    return () => unsubscribe(); // désabonnement
   }, []);
 
   const getData = () => {
@@ -92,18 +110,11 @@ export default function Home({ navigation }) {
       <Pressable onPress={() => navigation.navigate("GroupChat")}>
         <FontAwesome name="group" size={24} color="black" />
       </Pressable>
-      {/* <Pressable onPress={() => navigation.navigate("AppointmentCalendar")}>
-      <FontAwesome name="calendar" size={24} color="black" />
-      </Pressable> */}
-      <Pressable onPress={() => navigation.navigate("Calendar")}>
+      <Pressable onPress={() => navigation.navigate("CalendarEventAdmin")}>
       <FontAwesome name="calendar" size={24} color="black" />
       </Pressable>
-      {/* <Pressable onPress={() => navigation.navigate("CalendarScreen")}>
-      <FontAwesome name="calendar" size={24} color="black" />
-      </Pressable> */}
       <Button title="Album" onPress={() => navigation.navigate("Album")} />
       <Button title="Profile" onPress={() => navigation.navigate("Profile")} />
-      <Button title="Logout" onPress={logoutUser} />
     </>
   );
 }

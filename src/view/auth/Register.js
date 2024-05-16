@@ -1,23 +1,30 @@
 //RegisterView
 import React from 'react';
-import { StyleSheet, View, Text, Pressable, Image } from 'react-native';
+import { StyleSheet, View, Text, Pressable, Image, ScrollView } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
 import useRegister from '../../viewModel/authViewModel/RegisterModelView';
 import Checkbox from 'expo-checkbox';
 
+
 export default function Register() {
-    const { user, setUser, registerUser, showImagePickerOptions, error } = useRegister(); // Modification ici
+    const { user, setUser, registerUser, showImagePickerOptions, error } = useRegister();
 
     return (
-        <View style={styles.container}>
-            {/* Input pour l'email, le mot de passe et le nom d'utilisateur */}
+        <ScrollView 
+            contentContainerStyle={styles.container} 
+            showsHorizontalScrollIndicator={true}
+            indicatorStyle="pink" // Couleur de la barre de défilement
+            style={{ width: '100%', height: '100%', scrollbarWidth: 10, scrollbarColor: 'yellow' }} // Style pour la ScrollView
+        >
             <Input
                 placeholder='Enter your email'
                 label='Email'
                 value={user.email}
                 onChangeText={text => setUser({...user, email: text})}
                 leftIcon={{ type: 'material', name: 'email' }}
+                inputContainerStyle={styles.inputContainer}
+                labelStyle={styles.inputLabel}
             />
             <Input
                 placeholder='Enter your password'
@@ -25,14 +32,18 @@ export default function Register() {
                 value={user.password}
                 onChangeText={text => setUser({...user, password: text})}
                 leftIcon={{ type: 'material', name: 'lock' }}
-                secureTextEntry
+                // secureTextEntry
+                inputContainerStyle={styles.inputContainer}
+                labelStyle={styles.inputLabel}
             />
             <Input
                 placeholder="Confirm Password"
                 value={user.confirmPassword}
                 onChangeText={(text) => setUser({ ...user, confirmPassword: text })}
                 leftIcon={{ type: 'material', name: 'lock' }}
-                secureTextEntry
+                // secureTextEntry
+                inputContainerStyle={styles.inputContainer}
+                labelStyle={styles.inputLabel}
             />
             <Input
                 placeholder='Enter your username'
@@ -40,14 +51,14 @@ export default function Register() {
                 value={user.username}
                 onChangeText={text => setUser({...user, username: text})}
                 leftIcon={{ type: 'material', name: 'account-circle' }}
+                inputContainerStyle={styles.inputContainer}
+                labelStyle={styles.inputLabel}
             />
-           
 
-            {/* Affichage de l'avatar avec les options de sélection d'image */}
             <View style={styles.containerAvatar}>
                 <Text style={styles.introText}>📸 Choisissez votre avatar</Text>
 
-                {!user.image && (
+                {!user.avatarUrl && (
                     <Pressable onPress={showImagePickerOptions}>
                         <View style={{ borderRadius: 300, overflow: 'hidden' }}>
                             <Ionicons name="image" size={150} color="grey" />
@@ -57,12 +68,11 @@ export default function Register() {
 
                 {user.avatarUrl && (
                     <Pressable onPress={showImagePickerOptions}>
-                        <Image source={{ uri: user.avatarUrl }} style={styles.avatarUrl} />
+                        <Image source={{ uri: user.avatarUrl }} style={styles.image} />
                     </Pressable>
                 )}
             </View>
 
-            {/* Case à cocher pour choisir le rôle */}
             <View style={styles.checkboxContainer}>
                 <Checkbox
                     value={user.isAdmin}
@@ -72,30 +82,33 @@ export default function Register() {
                 <Text style={styles.label}>Administrateur</Text>
             </View>
 
-            {/* Affichage du message d'erreur */}
             {error && <Text style={styles.errorText}>{error}</Text>}
 
-            {/* Bouton pour s'inscrire */}
             <Button
                 onPress={registerUser}
-                style={styles.btn}
                 title='Register'
+                containerStyle={styles.btnContainer}
+                buttonStyle={styles.btn}
             />
-        </View>
-    )
+        </ScrollView>
+    );
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#fff',
+        flexGrow: 1,
+        backgroundColor: '#EEEEEE',
         alignItems: 'center',
         justifyContent: 'center',
+        padding: 20,
     },
     containerAvatar: {
         alignItems: 'center',
-        justifyContent: 'flex-start',
-        backgroundColor: '#f2f2f2',
+        justifyContent: 'center',
+        backgroundColor: '#fff',
+        padding: 20,
+        marginVertical: 20,
+        borderRadius: 50,
     },
     introText: {
         fontSize: 18,
@@ -107,21 +120,33 @@ const styles = StyleSheet.create({
         height: 150,
         borderRadius: 75,
     },
+    btnContainer: {
+        width: '100%',
+        marginTop: 20,
+        borderRadius:15
+    },
     btn: {
-        marginTop: 10
+        backgroundColor: '#38b6ff'
     },
     checkboxContainer: {
-        flexDirection: "row",
+        flexDirection: 'row',
         marginBottom: 20,
+        alignItems: 'center',
     },
-    checkbox: {
-        alignSelf: "center",
+    inputContainer: {
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 20,
+        paddingHorizontal: 10,
+        marginVertical: 10,
     },
-    label: {
-        margin: 8,
+    inputLabel: {
+        color: '#333',
+        fontSize: 16,
+        // marginBottom: 1,
     },
     errorText: {
         color: 'red',
         marginTop: 10,
-    }
+    },
 });

@@ -1,0 +1,163 @@
+
+import React, { useState, useEffect } from 'react';
+import { View, Alert, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
+import { Agenda } from 'react-native-calendars';
+import { collection, addDoc, serverTimestamp, getDocs } from 'firebase/firestore';
+import { db } from "../../firebase/firebaseConfig";
+
+const CalendarEvent = () => {
+  const [items, setItems] = useState({});
+  const [selectedDate, setSelectedDate] = useState('');
+  const [newEventText, setNewEventText] = useState('');
+
+  useEffect(() => {
+    fetchEvents();
+  }, []);
+
+  const fetchEvents = async () => {
+    try {
+      const eventsCollectionRef = collection(db, 'events');
+      const querySnapshot = await getDocs(eventsCollectionRef);
+      const formattedEvents = {};
+
+      querySnapshot.forEach((doc) => {
+        const eventData = doc.data();
+        const eventDate = eventData.date;
+        
+        if (!formattedEvents[eventDate]) {
+          formattedEvents[eventDate] = [];
+        }
+
+        formattedEvents[eventDate].push({
+          name: eventData.name,
+          date: eventDate,
+          id: doc.id // You can optionally include the document ID
+        });
+      });
+
+      setItems(formattedEvents);
+    } catch (error) {
+      console.error("Erreur lors de la récupération des événements :", error);
+      Alert.alert("Une erreur s'est produite lors de la récupération des événements. Veuillez réessayer.");
+    }
+  };
+
+  const handleDayPress = (day) => {
+    setSelectedDate(day.dateString);
+  };
+
+  const handleTextChange = (text) => {
+    setNewEventText(text);
+  };
+
+  const handleSaveEvent = async () => {
+    if (newEventText.trim() === '') {
+      Alert.alert("Veuillez saisir un événement.");
+      return;
+    }
+
+    try {
+      const eventsCollectionRef = collection(db, 'events');
+      await addDoc(eventsCollectionRef, {
+        date: selectedDate,
+        name: newEventText,
+        createdAt: serverTimestamp()
+      });
+      Alert.alert("Événement enregistré avec succès !");
+      setNewEventText('');
+    } catch (error) {
+      console.error("Erreur lors de l'enregistrement de l'événement :", error);
+      Alert.alert("Une erreur s'est produite lors de l'enregistrement de l'événement. Veuillez réessayer.");
+    }
+  };
+
+  const renderItem = (item) => {
+    return (
+      <TouchableOpacity
+        style={[styles.item, { height: item.height }]}
+        onPress={() => Alert.alert(item.name)}
+      >
+        <Text>{item.name}</Text>
+      </TouchableOpacity>
+    );
+  };
+
+  const renderEmptyDate = () => {
+    return (
+      <View style={styles.emptyDate}>
+        <Text>C'est une date vide !</Text>
+      </View>
+    );
+  };
+
+  const rowHasChanged = (r1, r2) => {
+    return r1.name !== r2.name;
+  };
+
+  return (
+    <View style={styles.container}>
+      <Agenda
+        items={items}
+        selected={selectedDate}
+        renderItem={renderItem}
+        renderEmptyDate={renderEmptyDate}
+        rowHasChanged={rowHasChanged}
+        onDayPress={handleDayPress}
+      />
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          onChangeText={handleTextChange}
+          value={newEventText}
+          placeholder="Entrez votre événement"
+        />
+        <TouchableOpacity style={styles.button} onPress={handleSaveEvent}>
+          <Text style={styles.buttonText}>Enregistrer</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    paddingBottom: 10
+  },
+  input: {
+    flex: 1,
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginRight: 10,
+    paddingHorizontal: 10
+  },
+  button: {
+    backgroundColor: 'blue',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5
+  },
+  buttonText: {
+    color: 'white'
+  },
+  item: {
+    backgroundColor: 'white',
+    borderRadius: 5,
+    padding: 10,
+    marginRight: 10,
+    marginTop: 17
+  },
+  emptyDate: {
+    height: 15,
+    flex: 1,
+    paddingTop: 30
+  }
+});
+
+export default CalendarEvent;

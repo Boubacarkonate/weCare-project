@@ -1,16 +1,15 @@
-// GroupChat.js
+//Group
 import React, { useState, useEffect } from 'react';
-import { View, TextInput, FlatList, TouchableOpacity, Button, Text } from 'react-native';
+import { View, TextInput, FlatList, Button, Text, StyleSheet } from 'react-native';
 import { collection, addDoc, serverTimestamp, updateDoc, doc, arrayUnion, getDocs } from 'firebase/firestore';
-import { authentication, db, storage } from "../../firebase/firebaseConfig";
-import { useNavigation } from '@react-navigation/native';
+import { db } from "../../firebase/firebaseConfig";
+import Checkbox from 'expo-checkbox';
 
 const GroupChat = () => {
   const [users, setUsers] = useState([]);
   const [selectedMembers, setSelectedMembers] = useState([]);
   const [groupName, setGroupName] = useState('');
   const [groupId, setGroupId] = useState(null);
-  const navigation = useNavigation();
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -61,8 +60,6 @@ const GroupChat = () => {
       // Mettre à jour le document avec l'ID réel
       await updateDoc(doc(db, 'groups', groupId), { id_group: groupId });
       
-      // Navigation vers GroupChatScreen une fois le groupe créé
-      // navigation.navigate('GroupChatScreen', { groupId: groupId, selectedMembers: selectedMembers });
     } catch (error) {
       console.error('Erreur lors de la création du groupe de chat :', error);
     }
@@ -88,17 +85,34 @@ const GroupChat = () => {
         data={users}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => toggleMemberSelection(item.id)}>
+          <View style={styles.checkboxContainer}>
             <Text>{item.username}</Text>
-          </TouchableOpacity>
+            <Checkbox 
+              value={selectedMembers.includes(item.id)}
+              onValueChange={() => toggleMemberSelection(item.id)}
+              color='#4630EB'
+            />
+          </View>
         )}
       />
       <Button
         title="Créer un groupe de chat"
         onPress={createGroupChat}
       />
+      {/* <Button
+        title="Créer un groupe album"
+        onPress={createGroupChat}
+      /> */}
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  checkboxContainer: {
+    flexDirection: 'row',
+    marginBottom: 20,
+    alignItems: 'center',
+  },
+});
 
 export default GroupChat;
