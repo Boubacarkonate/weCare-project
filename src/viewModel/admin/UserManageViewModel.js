@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { authentication, db } from '../../../firebase/firebaseConfig';
-import User from './User.model'; // Assurez-vous d'importer correctement le modèle User
+import User from './User.model';
 
 const UserManageViewModel = () => {
     const [users, setUsers] = useState([]);

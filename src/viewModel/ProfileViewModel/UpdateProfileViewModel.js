@@ -22,7 +22,7 @@ export default function UpdateProfileViewModel() {
                     const userData = snapshot.data();
                     const { email, username, avatarUrl } = userData;
                     setUser(new User(email, '', username, avatarUrl, false));
-                    // Ne pas récupérer le mot de passe de la base de données
+                    
                 }
             } catch (error) {
                 console.error('Error fetching user data:', error);
