@@ -26,7 +26,7 @@ function LogoTitle() {
   return (
     <Image
       style={{ width: 70, height: 77, margin: 20 }}
-      source={require('./assets/WeCare.png')}
+      source={require('./assets/splashScreen.png')}
     />
   );
 }

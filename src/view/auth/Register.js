@@ -56,7 +56,7 @@ export default function Register() {
             />
 
             <View style={styles.containerAvatar}>
-                <Text style={styles.introText}>📸 Choisissez votre avatar</Text>
+                <Text style={styles.introText}>Choisissez votre avatar</Text>
 
                 {!user.avatarUrl && (
                     <Pressable onPress={showImagePickerOptions}>
