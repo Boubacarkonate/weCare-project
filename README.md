@@ -6,6 +6,34 @@
 ## Run le projet expo en local
     npx expo start
 
+## screenshots de l'application :
+splash screen
+![Screenshot_splashScreen](https://github.com/Boubacarkonate/weCare-project/assets/122236288/9c2cf0ea-346c-4a1e-9275-c52f69d38c4e)
+
+
+page d'inscription
+![Screenshot_register](https://github.com/Boubacarkonate/weCare-project/assets/122236288/b5795517-74c2-4340-bed2-1adef52502fd)
+
+
+page de connexion
+![Screenshot_login](https://github.com/Boubacarkonate/weCare-project/assets/122236288/cca1de79-797c-4fde-a7bc-b6b6d7ccfc7c)
+
+
+page profil
+![Screenshot_profile](https://github.com/Boubacarkonate/weCare-project/assets/122236288/c0aa86a8-0a37-4ea4-ac6b-307d552f7998)
+
+
+messagerie privée
+![Screenshot_chat](https://github.com/Boubacarkonate/weCare-project/assets/122236288/6c2e84a4-8c14-479e-8b6b-cc4e580b04ad)
+
+
+calendrier partargé
+![Screenshot_calendar](https://github.com/Boubacarkonate/weCare-project/assets/122236288/2f571d9c-0d98-4c71-9304-fc5aa8a4867d)
+
+
+album photo partagé
+![Screenshot_album](https://github.com/Boubacarkonate/weCare-project/assets/122236288/1dd5602c-7f4f-4bba-a3f2-dd91412f2de3)
+
 ## Dépendances
 
 ### projet en local sur le web

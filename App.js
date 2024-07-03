@@ -53,7 +53,10 @@ export default function App() {
           options={{
             headerStyle: {
               backgroundColor: '#38b6ff',
-            }
+            },
+            headerTitleStyle: {
+              color: '#fff',
+            },
           }}
         />
 <Stack.Screen name="ForgotPassword" component={ForgotPassword}
@@ -65,10 +68,13 @@ options={{
 />
 <Stack.Screen name="Profile" component={Profile}
   options={{
-          headerStyle: {
-            backgroundColor: '#38b6ff',
-          },
-        }}
+    headerStyle: {
+      backgroundColor: '#38b6ff',
+    },
+    headerTitleStyle: {
+      color: '#fff',
+    },
+  }} 
 />
 <Stack.Screen name="HomeUser" component={HomeUser} />
 <Stack.Screen name="Home" component={Home} />
@@ -116,9 +122,38 @@ options={{
           }}
         />
         <Stack.Screen name="GroupChatScreen" component={GroupChatScreen} />
-        <Stack.Screen name="Album" component={Album} />
-        <Stack.Screen name="CalendarEventAdmin" component={CalendarEventViewAdmin} />
-        <Stack.Screen name="CalendarEventUser" component={CalendarEventViewUser} />
+        <Stack.Screen 
+  name="Album" 
+  component={Album} 
+  options={{
+    headerStyle: {
+      backgroundColor: '#38b6ff',
+    },
+    headerTitleStyle: {
+      color: '#fff',
+    },
+  }} 
+/>
+        <Stack.Screen name="CalendarEventAdmin" component={CalendarEventViewAdmin} 
+          options={{
+            headerStyle: {
+              backgroundColor: '#38b6ff',
+            },
+            headerTitleStyle: {
+              color: '#fff',
+            },
+          }} 
+        />
+        <Stack.Screen name="CalendarEventUser" component={CalendarEventViewUser} 
+          options={{
+            headerStyle: {
+              backgroundColor: '#38b6ff',
+            },
+            headerTitleStyle: {
+              color: '#fff',
+            },
+          }} 
+        />
         <Stack.Screen name="GroupChat" component={GroupChat} 
           options={{
             headerStyle: {

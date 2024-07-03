@@ -3,10 +3,10 @@ import { StyleSheet, Text, View, FlatList, TouchableOpacity, Image } from 'react
 import React from 'react';
 
 const data = [
-    { images: 'https://picsum.photos/id/53/200/300' },
+    { images: 'https://fastly.picsum.photos/id/61/3264/2448.jpg?hmac=Xi3Kq99U5tueFi0aajgUP0yWAL4xwCHg5ZXGZRLTqyI' },
     { images: 'https://picsum.photos/id/43/200/300' },
-    { images: 'https://picsum.photos/200/300' },
-    { images: 'https://picsum.photos/id/33/200/300' },
+    { images: 'https://fastly.picsum.photos/id/65/4912/3264.jpg?hmac=uq0IxYtPIqRKinGruj45KcPPzxDjQvErcxyS1tn7bG0' },
+    { images: 'https://fastly.picsum.photos/id/177/2515/1830.jpg?hmac=G8-2Q3-YPB2TreOK-4ofcmS-z5F6chIA0GHYAe5yzDY' },
     { images: 'https://picsum.photos/id/34/200/300' },
     { images: 'https://picsum.photos/id/13/200/300' },
     { images: 'https://picsum.photos/id/23/200/300' },
